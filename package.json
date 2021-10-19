@@ -1,0 +1,13 @@
+{
+  "name": "@dhis2/graphql-server",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "author": "Jan-Gerke Salomon <jgs.salomon@gmail.com>",
+  "license": "BSD-3-Clause",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "dependencies": {
+    "node-fetch": "^2.6.1"
+  }
+}
