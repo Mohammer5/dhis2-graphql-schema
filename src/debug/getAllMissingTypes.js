@@ -1,3 +1,5 @@
+const primitiveTypes = ['Enum', 'String', 'Int', 'Boolean', 'ID', 'Long', 'Date', 'Number']
+
 module.exports.getAllMissingTypes = schemas => {
   return Object
     .values(schemas)
@@ -14,7 +16,7 @@ module.exports.getAllMissingTypes = schemas => {
       []
     )
     .filter(({ type }) => !schemas[type])
-    .filter(({ type }) => !['String', 'Int', 'Boolean', 'ID'].includes(type))
+    .filter(({ type }) => !primitiveTypes.includes(type))
     .filter(onlyUniqueProp('type'))
 }
 

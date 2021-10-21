@@ -5,10 +5,8 @@ module.exports.logMissingEmbeddableTypes = schemas => {
 
   const embeddableTypes = allMissingTypes
     .filter(({ embeddedObject }) => embeddedObject)
-    .map(({ type }) => type)
+    .map(({ klass }) => klass)
 
-  console.log(
-    '> Missing embedded types:',
-    JSON.stringify(embeddableTypes, null, 2)
-  )
+  console.log('> Missing embedded types:')
+  embeddableTypes.forEach(embeddableType => console.log(embeddableType))
 }
