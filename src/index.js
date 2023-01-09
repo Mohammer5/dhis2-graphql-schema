@@ -23,8 +23,9 @@ const main = async () => {
   }
 
   logMissingEmbeddableTypes(schemas)
+  console.log('')
+  logMissingNonEmbeddableTypes(schemas)
   // console.log('')
-  // logMissingNonEmbeddableTypes(schemas)
   // logExistingTypes(schemas)
 }
 

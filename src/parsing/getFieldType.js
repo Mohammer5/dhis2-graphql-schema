@@ -55,7 +55,10 @@ module.exports.getFieldType = property => {
     nextConfig = createFieldType({ type: 'Number' })
   }
 
-  else if ([klassName, itemKlassName].includes('String')) {
+  else if (
+    [klassName, itemKlassName].includes('String') ||
+    propertyType === 'TEXT'
+  ) {
     nextConfig = createFieldType({ type: 'String' })
   }
 

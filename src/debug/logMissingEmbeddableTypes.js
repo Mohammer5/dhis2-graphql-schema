@@ -1,12 +1,7 @@
-const { getAllMissingTypes } = require('./getAllMissingTypes')
+const { getMissingEmbeddableTypes } = require('./getMissingEmbeddableTypes')
 
 module.exports.logMissingEmbeddableTypes = schemas => {
-  const allMissingTypes = getAllMissingTypes(schemas)
-
-  const embeddableTypes = allMissingTypes
-    .filter(({ embeddedObject }) => embeddedObject)
-    .map(({ klass }) => klass)
-
+  const embeddableTypes = getMissingEmbeddableTypes(schemas)
   console.log('> Missing embedded types:')
   embeddableTypes.forEach(embeddableType => console.log(embeddableType))
 }

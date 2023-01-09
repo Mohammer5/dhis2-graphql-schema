@@ -1,12 +1,14 @@
 const { getAllMissingTypes } = require('./getAllMissingTypes')
 
 const logMissingTypes = (types, simples) => {
-  types
+  const toLog = types
     .filter(({ simple }) => simples ? simple : !simple)
-    .forEach(({ klass }) => {
+    .map(({ klass }) => {
       const [klassName] = klass.match(/[^.]*$/)
-      console.log(klassName)
+      return klassName
     })
+
+  console.log(JSON.stringify(toLog, null, 2))
 }
 
 module.exports.logMissingNonEmbeddableTypes = schemas => {
@@ -52,8 +54,6 @@ module.exports.logMissingNonEmbeddableTypes = schemas => {
     (left, right) => left.localeCompare(right)
   )
 
-  console.log('> uniqueMissingGenericTypes', uniqueMissingGenericTypes)
-
   const nonEmbeddableTypes = allMissingTypes
     .filter(({ embeddedObject, type }) => (
       !embeddedObject &&
@@ -67,15 +67,25 @@ module.exports.logMissingNonEmbeddableTypes = schemas => {
   logMissingTypes(nonEmbeddableTypes, false)
 
   console.log('')
+  console.log('> uniqueMissingGenericTypes', uniqueMissingGenericTypes)
+
+  console.log('')
   console.log('> Missing non-embedded generic types');
   Object.entries(fieldsWithMissingNonEmbeddableGenericType).forEach(
     ([type, schemasWithType], index) => {
       index > 0 && console.log('')
       console.log(`> The type ${type} is present in the following schemas/fields:`)
       Object.entries(schemasWithType).forEach(
-        ([schemaWithType, types]) => {
+        ([schemaWithType, properties]) => {
           console.log(`  > Schema: ${schemaWithType}`)
-          console.log(`    > Types:`, JSON.stringify(types).replace(/"/g, '').replace(/,/g, ', '))
+          console.log(
+            `    > Properties:`,
+            JSON.stringify(properties, null, 2)
+              .replace(/"/g, '')
+              .replace(/,/g, ', ')
+              .replace(/\n\s+([a-zA-Z])/g, '\n        $1')
+              .replace(']', '      ]')
+          )
         }
       )
     }
